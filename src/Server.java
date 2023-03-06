@@ -8,9 +8,9 @@ public class Server {
     BasicText text = new BasicText();
 
     public static void main(String[] args) throws IOException {
-        Persons persons01 = new Administration("Директор", 10000, "Иван", "Петров", 30);
-        Persons persons02 = new Doctor("Бухгалтер", 20000, "Олег", "Иванов", 40);
-        Persons persons03 = new MedNurse("Механик", 15000, "Антон", "Сидоров", 27);
+        Persons persons01 = new Administration("Заместитель главного врача", 175000, "Денис", "Боткин", 47);
+        Persons persons02 = new Doctor("Фтизиатр участковый", 120000, "Олег", "Зубань", 40);
+        Persons persons03 = new MedNurse("Сестра палатная хирургическая", 115000, "Светлана", "Кандыбина", 38);
         Hospital businessCo = new Hospital();
         businessCo.listAdd(persons01);
         businessCo.listAdd(persons02);
@@ -90,8 +90,6 @@ public class Server {
                 int scanSalary = Integer.parseInt(infoIn.readUTF());
                 infoOut.writeUTF("Введите возраст сотрудника");
                 int scanAge = Integer.parseInt(infoIn.readUTF());
-//                infoOut.writeUTF("Введите парковочный номер сотрудника");
-//                int scanParking = Integer.parseInt(infoIn.readUTF());
                 businessCo.listAdd(new Administration(scanPosition, scanSalary, scanFirstName, scanSecondName, scanAge));
                 infoOut.writeUTF("Добавлен сотрудник: " + scanFirstName + " " + scanSecondName + serverInfo.text.basicPrint());
                 break;
@@ -106,8 +104,6 @@ public class Server {
                 scanSalary = Integer.parseInt(infoIn.readUTF());
                 infoOut.writeUTF("Введите возраст сотрудника");
                 scanAge = Integer.parseInt(infoIn.readUTF());
-//                infoOut.writeUTF("Введите ПО для сотрудника");
-//                String scanSoft = infoIn.readUTF();
                 businessCo.listAdd(new Doctor(scanPosition, scanSalary, scanFirstName, scanSecondName, scanAge));
                 infoOut.writeUTF("Добавлен сотрудник: " + scanFirstName + " " + scanSecondName + serverInfo.text.basicPrint());
                 break;
