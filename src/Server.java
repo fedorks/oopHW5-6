@@ -16,7 +16,7 @@ public class Server {
         businessCo.listAdd(persons02);
         businessCo.listAdd(persons03);
         Server serverInfo = new Server();
-        try (ServerSocket serverPart = new ServerSocket(555)) {
+        try (ServerSocket serverPart = new ServerSocket(1234)) {
             System.out.println("Сервер запущен... Ожидаем подключение клиента...");
             Socket serverInterface = serverPart.accept();
             System.out.println("Клиент произвёл подключение...");

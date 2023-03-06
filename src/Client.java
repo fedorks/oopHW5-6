@@ -8,7 +8,7 @@ public class Client {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         BasicText text = new BasicText();
-        try (Socket clientPart = new Socket("localhost", 555)) {
+        try (Socket clientPart = new Socket("localhost", 1234)) {
             DataInputStream infoIn = new DataInputStream(clientPart.getInputStream());
             DataOutputStream infoOut = new DataOutputStream(clientPart.getOutputStream());
             System.out.println(text.basicPrint());
