@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Company implements Iterable<Persons> {
+public class Hospital implements Iterable<Persons> {
     private List<Persons> listPersonal = new ArrayList<>();
 
     public void listAdd(Persons person) {

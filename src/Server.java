@@ -8,13 +8,13 @@ public class Server {
     BasicText text = new BasicText();
 
     public static void main(String[] args) throws IOException {
-        Persons ivan = new Administration("Директор", 10000, "Иван", "Петров", 30, 12);
-        Persons oleg = new Doctor("Бухгалтер", 20000, "Олег", "Иванов", 40, "Microsoft");
-        Persons anton = new MedNurse("Механик", 15000, "Антон", "Сидоров", 27);
-        Company businessCo = new Company();
-        businessCo.listAdd(ivan);
-        businessCo.listAdd(oleg);
-        businessCo.listAdd(anton);
+        Persons persons01 = new Administration("Директор", 10000, "Иван", "Петров", 30);
+        Persons persons02 = new Doctor("Бухгалтер", 20000, "Олег", "Иванов", 40);
+        Persons persons03 = new MedNurse("Механик", 15000, "Антон", "Сидоров", 27);
+        Hospital businessCo = new Hospital();
+        businessCo.listAdd(persons01);
+        businessCo.listAdd(persons02);
+        businessCo.listAdd(persons03);
         Server serverInfo = new Server();
         try (ServerSocket serverPart = new ServerSocket(555)) {
             System.out.println("Сервер запущен... Ожидаем подключение клиента...");
@@ -51,7 +51,7 @@ public class Server {
 
                     businessCo.removeStuff(idNum);
                 } else if (Integer.parseInt(clientRequest) == 3) {
-                    infoOut.writeUTF("Кого нужно добавить?\n[1] Начальство; [2] Бухгалтерия; [3] Рабочий\n");
+                    infoOut.writeUTF("Кого нужно добавить?\n[1] Административного сотрудника; [2] Врача; [3] Медицинскую сестру\n");
                     serverInfo.addPersonal(infoOut, infoIn, businessCo, serverInfo);
                 } else if (Integer.parseInt(clientRequest) == 4) {
                     String listPer = "";
@@ -77,7 +77,7 @@ public class Server {
         }
     }
 
-    public void addPersonal(DataOutputStream infoOut, DataInputStream infoIn, Company businessCo, Server serverInfo) throws IOException {
+    public void addPersonal(DataOutputStream infoOut, DataInputStream infoIn, Hospital businessCo, Server serverInfo) throws IOException {
         switch (Integer.parseInt(infoIn.readUTF())) {
             case (1):
                 infoOut.writeUTF("Введите должность сотрудника");
@@ -90,9 +90,9 @@ public class Server {
                 int scanSalary = Integer.parseInt(infoIn.readUTF());
                 infoOut.writeUTF("Введите возраст сотрудника");
                 int scanAge = Integer.parseInt(infoIn.readUTF());
-                infoOut.writeUTF("Введите парковочный номер сотрудника");
-                int scanParking = Integer.parseInt(infoIn.readUTF());
-                businessCo.listAdd(new Administration(scanPosition, scanSalary, scanFirstName, scanSecondName, scanAge, scanParking));
+//                infoOut.writeUTF("Введите парковочный номер сотрудника");
+//                int scanParking = Integer.parseInt(infoIn.readUTF());
+                businessCo.listAdd(new Administration(scanPosition, scanSalary, scanFirstName, scanSecondName, scanAge));
                 infoOut.writeUTF("Добавлен сотрудник: " + scanFirstName + " " + scanSecondName + serverInfo.text.basicPrint());
                 break;
             case (2):
@@ -106,9 +106,9 @@ public class Server {
                 scanSalary = Integer.parseInt(infoIn.readUTF());
                 infoOut.writeUTF("Введите возраст сотрудника");
                 scanAge = Integer.parseInt(infoIn.readUTF());
-                infoOut.writeUTF("Введите ПО для сотрудника");
-                String scanSoft = infoIn.readUTF();
-                businessCo.listAdd(new Doctor(scanPosition, scanSalary, scanFirstName, scanSecondName, scanAge, scanSoft));
+//                infoOut.writeUTF("Введите ПО для сотрудника");
+//                String scanSoft = infoIn.readUTF();
+                businessCo.listAdd(new Doctor(scanPosition, scanSalary, scanFirstName, scanSecondName, scanAge));
                 infoOut.writeUTF("Добавлен сотрудник: " + scanFirstName + " " + scanSecondName + serverInfo.text.basicPrint());
                 break;
             case (3):
@@ -128,7 +128,7 @@ public class Server {
         }
     }
 
-    public void changePersonal(int idNum,DataOutputStream infoOut, DataInputStream infoIn, Company businessCo, Server serverInfo) throws IOException {
+    public void changePersonal(int idNum, DataOutputStream infoOut, DataInputStream infoIn, Hospital businessCo, Server serverInfo) throws IOException {
         for (Persons id : businessCo) {
             if (idNum == id.getId()) {
                 infoOut.writeUTF(id.getInfo() + "\nКакие данные изменить?\n[1] Имя; [2] Фамилия" +
